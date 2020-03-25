@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% for comment in comments %}
+        <div class="mb-3 col-12">
+            <p><strong>{{ comment.author_name }}</strong></p>
+            <p>{{ comment.comment }}</p>
+            <p>{{ comment.date }}</p>
+        </div>
+    {% endfor %}
+{% endblock content %}
