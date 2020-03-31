@@ -11,6 +11,7 @@ class Comment(Base):
     comment = Column(String(2056), nullable=False)
     date = Column(DateTime, nullable=False)
     like_count = Column(Integer, default=0)
+    sentiment = Column(String(1024), nullable=False)
     
     def __str__(self):
         if len(self.comment) > 40:
