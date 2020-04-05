@@ -1,5 +1,6 @@
-from db_settings import Base
+from source.db_settings import Base
 from sqlalchemy import Column, Integer, String, DateTime
+
 
 class Comment(Base):
     __tablename__ = 'comments'

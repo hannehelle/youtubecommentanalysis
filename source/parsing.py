@@ -1,15 +1,14 @@
 import os
 import googleapiclient.discovery
 from tqdm import tqdm
-from functions import get_top_level_comments, get_child_comments_by_parent_id
-from settings import DEVELOPER_KEY
-from db_settings import Base, session
-from models import Comment
+from source.functions import get_top_level_comments, get_child_comments_by_parent_id
+from source.settings import DEVELOPER_KEY
+from source.db_settings import Base, session_maker
+from source.models import Comment
 import re
 
 
-def put_all_comments_in_db(video_id):
-    Base.metadata.create_all()
+def get_comments_from_youtube(video_id):
 
     os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "0"
 
@@ -33,11 +32,16 @@ def put_all_comments_in_db(video_id):
     for comment in tqdm(top_level_comments):
         child_comments = get_child_comments_by_parent_id (youtube, comment['comment_id'], comment['video_id'])
         all_comments += child_comments
-    
+
+    return all_comments
+
+
+def put_comments_in_db(comments):
+    session = session_maker()
     session.query(Comment).delete()
     session.commit()
 
-    for comment in all_comments:
+    for comment in comments:
         c = Comment(
             video_id=comment['video_id'],
             comment_id=comment['comment_id'],

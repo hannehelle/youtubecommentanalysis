@@ -1,5 +1,5 @@
 from datetime import datetime
-from settings import DEVELOPER_KEY
+
 
 def get_top_level_comments(youtube, video_id, page_token=None):
 
@@ -33,7 +33,6 @@ def get_top_level_comments(youtube, video_id, page_token=None):
     ]
         
     return formated_comments, next_page_token
-
 
 
 def get_child_comments_by_parent_id(youtube, parent_id, video_id):

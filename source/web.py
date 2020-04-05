@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template
-from parsing import get_video_id, put_all_comments_in_db
-from db_settings import session
-from models import Comment
+from source.parsing import get_video_id, get_comments_from_youtube, put_comments_in_db
+from source.db_settings import session_maker
+from source.models import Comment
 
 app = Flask(__name__)
 
@@ -20,13 +20,12 @@ def mainpage():
         if not video_id:
             return render_template('form.html', error_message='Не удалось определить id видео')
 
-        put_all_comments_in_db(video_id)
+        comments = get_comments_from_youtube(video_id)
+        put_comments_in_db(comments)
 
+        session = session_maker()
         comments = session.query(Comment).all()
         return render_template('results.html', comments=comments)
-
-
-
 
 
 if __name__ == '__main__':
