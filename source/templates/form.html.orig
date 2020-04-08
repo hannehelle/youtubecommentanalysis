@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="col-12 col-lg-6">
+    <form method="post" class="text-center">
+       <h1 class="mb-3">Анализ комментариев под видео на YouTube</h1>
+       <input name='video_link' class="form-control form-control-lg" type="text" placeholder="Вставьте ссылку на видео">
+        {% if error_message %}
+            <div class="text-danger text-left">
+              {{error_message}}
+            </div>
+        {% endif %}
+       <button type="submit" class="btn btn-lg btn-danger mt-3">Отправить</button>
+    </form>
+</div>
+{% endblock content %}
