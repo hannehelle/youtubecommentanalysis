@@ -1,5 +1,9 @@
 from flask import Flask, request, render_template
+<<<<<<< HEAD
 from parsing import get_video_id, get_all_comments
+=======
+from parsing import get_video_id, put_all_comments_in_db
+>>>>>>> da559716c726734437be911cb5fdb0219b7519ba
 from db_settings import session
 from models import Comment
 
@@ -20,9 +24,21 @@ def mainpage():
         if not video_id:
             return render_template('form.html', error_message='Не удалось определить id видео')
 
+<<<<<<< HEAD
         comments = get_all_comments(video_id)
         
         return render_template('results.html', comments=comments)
 
+=======
+        put_all_comments_in_db(video_id)
+
+        comments = session.query(Comment).all()
+        return render_template('results.html', comments=comments)
+
+
+
+
+
+>>>>>>> da559716c726734437be911cb5fdb0219b7519ba
 if __name__ == '__main__':
     app.run()
