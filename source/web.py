@@ -24,9 +24,5 @@ def mainpage():
         
         return render_template('results.html', comments=comments)
 
-
-
-
-
 if __name__ == '__main__':
     app.run()

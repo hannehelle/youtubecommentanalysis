@@ -6,7 +6,8 @@
             <p><strong>{{ comment.author_name }}</strong></p>
             <p>{{ comment.comment }}</p>
             <p>{{ comment.date }}</p>
-            <p>{{ comment.sentiment }}</p>
+            <p>Positive: {{ comment.positive}}</p>
+            <p>Negative{{ comment.negative}}</p>
         </div>
     {% endfor %}
 {% endblock content %}
