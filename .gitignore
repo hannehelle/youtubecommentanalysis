@@ -4,3 +4,4 @@ env/*
 .vscode/
 settings.py
 .idea
+source/__pycache__/*

@@ -1,11 +1,9 @@
 from flask import Flask, request, render_template
-<<<<<<< HEAD
-from parsing import get_video_id, get_all_comments
-=======
-from parsing import get_video_id, put_all_comments_in_db
->>>>>>> da559716c726734437be911cb5fdb0219b7519ba
-from db_settings import session
+from flask import send_file
 from models import Comment
+from utilits import get_video_id
+from create_data import all_data
+from write_xls import write_xls
 
 app = Flask(__name__)
 
@@ -24,21 +22,25 @@ def mainpage():
         if not video_id:
             return render_template('form.html', error_message='Не удалось определить id видео')
 
-<<<<<<< HEAD
-        comments = get_all_comments(video_id)
-        
-        return render_template('results.html', comments=comments)
+        data = all_data(video_id)
+        write_xls(video_id, data)
 
-=======
-        put_all_comments_in_db(video_id)
+        return render_template('downloads.html')
 
-        comments = session.query(Comment).all()
-        return render_template('results.html', comments=comments)
+@app.route('/file-downloads/', methods = ['POST'])
+def file_downloads():
+	try:
+		return render_template('downloads.html')
+	except Exception as e:
+		return str(e)
+
+@app.route('/return-files/', methods = ['GET'])
+def return_files_tut():
+	try:
+		return send_file('{}.xlsx'.format(video_id), attachment_filename='{}.xlsx'.format(video_id), as_attachment=True)
+	except Exception as e:
+		return str(e)
 
 
-
-
-
->>>>>>> da559716c726734437be911cb5fdb0219b7519ba
 if __name__ == '__main__':
     app.run()
